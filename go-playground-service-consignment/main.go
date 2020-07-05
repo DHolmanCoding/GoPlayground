@@ -15,27 +15,27 @@ import (
 const port = ":50051"
 
 type repository interface {
-	Create(*pb.Consignment) (*pb.Consignment, error)
+	AddConsignment(*pb.Consignment) (*pb.Consignment, error)
 }
 
-// Repository - Dummy repository, this simulates the use of a datastore
+// ConsignmentList - Dummy repository, this simulates the use of a datastore
 // of some kind. We'll replace this with a real implementation later on.
 //
 // Below is an example of building your own custom type:
 //  type <custom-type-name> <existing-type>
-type Repository struct {
+type ConsignmentList struct {
 	rwMutex      sync.RWMutex // Mutex that allows multiple readers but allows locking for writers
 	consignments []*pb.Consignment
 }
 
-// Create a new consignment
+// AddConsignment a new consignment
 //
-// This is an example of a method that acts on the Repository struct
+// This is an example of a method that acts on the ConsignmentList struct
 // func (<struct-instance-variable-name> <struct-name>) <MethodName(argument Type)> (<return-type(s)>)
-func (repo *Repository) Create(consignment *pb.Consignment) (*pb.Consignment, error) {
+func (repo *ConsignmentList) AddConsignment(consignment *pb.Consignment) (*pb.Consignment, error) {
 	repo.rwMutex.Lock()
-	updated := append(repo.consignments, consignment)
-	repo.consignments = updated
+	locallyUpdatedConsignments := append(repo.consignments, consignment)
+	repo.consignments = locallyUpdatedConsignments
 	repo.rwMutex.Unlock()
 	return consignment, nil
 }
@@ -54,7 +54,7 @@ type service struct {
 func (s *service) CreateConsignment(ctx context.Context, req *pb.Consignment) (*pb.Response, error) {
 
 	// Save our consignment
-	consignment, err := s.repo.Create(req)
+	consignment, err := s.repo.AddConsignment(req)
 	if err != nil {
 		return nil, err
 	}
@@ -65,26 +65,26 @@ func (s *service) CreateConsignment(ctx context.Context, req *pb.Consignment) (*
 }
 
 func main() {
-
-	repo := &Repository{}
+	// Initialize an empty repository to store incoming consignments
+	repo := &ConsignmentList{}
 
 	// Set-up our gRPC server.
 	lis, err := net.Listen("tcp", port)
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
-	s := grpc.NewServer()
+	server := grpc.NewServer()
 
 	// Register our service with the gRPC server, this will tie our
 	// implementation into the auto-generated interface code for our
 	// protobuf definition.
-	pb.RegisterShippingServiceServer(s, &service{repo})
+	pb.RegisterShippingServiceServer(server, &service{repo})
 
 	// Register reflection service on gRPC server.
-	reflection.Register(s)
+	reflection.Register(server)
 
 	log.Println("Running on port:", port)
-	if err := s.Serve(lis); err != nil {
+	if err := server.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}
 }
