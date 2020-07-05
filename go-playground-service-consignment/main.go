@@ -29,6 +29,9 @@ type Repository struct {
 }
 
 // Create a new consignment
+//
+// This is an example of a method that acts on the Repository struct
+// func (<struct-instance-variable-name> <struct-name>) <MethodName(argument Type)> (<return-type(s)>)
 func (repo *Repository) Create(consignment *pb.Consignment) (*pb.Consignment, error) {
 	repo.rwMutex.Lock()
 	updated := append(repo.consignments, consignment)
