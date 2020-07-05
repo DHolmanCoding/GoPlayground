@@ -3,7 +3,7 @@ syntax = "proto3"; // version
 
 package consignment;
 
-option go_package = "GoProtoServiceConsignment/proto/consignment;consignment";
+option go_package = "go-playground-service-consignment/proto/consignment;consignment";
 
 // Service definition consists of methods exposed to other services
 // gRPC protobuf plugin handles the shipping service
