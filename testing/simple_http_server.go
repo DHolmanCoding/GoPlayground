@@ -1,4 +1,4 @@
-package main
+package testing
 
 import (
 	"fmt"
@@ -19,7 +19,7 @@ func headerEndpoint(response http.ResponseWriter, req *http.Request) {
 	}
 }
 
-func main() {
+func LaunchServer() {
 	http.HandleFunc("/basic-endpoint", basicEndpoint)
 	http.HandleFunc("/header-endpoint", headerEndpoint)
 	http.ListenAndServe(":6666", nil)
