@@ -1,12 +1,19 @@
 // GoProtoServiceConsignment
-syntax = "proto3";
+syntax = "proto3"; // version
 
 package consignment;
 
+option go_package = "GoProtoServiceConsignment/proto/consignment;consignment";
+
+// Service definition consists of methods exposed to other services
+// gRPC protobuf plugin handles the shipping service
 service ShippingService {
+  // function that takes in a request message and returns a response message
   rpc CreateConsignment(Consignment) returns (Response) {}
 }
 
+// messages, like the ones defined below are just custom types like structs.
+// messages are handled by protobuf
 message Consignment {
   string id = 1;
   string description = 2;
