@@ -6,16 +6,15 @@ import (
 )
 
 // curl 127.0.0.1:6666/basic-endpoint
-func basicEndpoint(writer http.ResponseWriter, request* http.Request) {
-	fmt.Fprintln(writer, "This is the response test")
+func basicEndpoint(response http.ResponseWriter, request *http.Request) {
+	fmt.Fprintln(response, "This is the response test")
 }
 
-
 // curl -H "Accept: application/json" -H "Content-Type: application/json" 127.0.0.1:6666/header-endpoint
-func headerEndpoint(w http.ResponseWriter, req* http.Request) {
+func headerEndpoint(response http.ResponseWriter, req *http.Request) {
 	for name, headers := range req.Header {
 		for _, h := range headers {
-			fmt.Fprintf(w, "Header -- %v: %v\n", name, h)
+			fmt.Fprintf(response, "Header -- %v: %v\n", name, h)
 		}
 	}
 }
