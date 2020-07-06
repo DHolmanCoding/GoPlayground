@@ -1,4 +1,4 @@
-module github.com/DHolmanCoding/GoPlayground
+module GoPlayground
 
 go 1.14
 

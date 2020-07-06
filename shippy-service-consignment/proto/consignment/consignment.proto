@@ -3,13 +3,15 @@ syntax = "proto3"; // version
 
 package consignment;
 
-option go_package = "go-playground-service-consignment/proto/consignment;consignment";
+option go_package = "shippy-service-consignment/proto/consignment;consignment";
 
 // Service definition consists of methods exposed to other services
 // gRPC protobuf plugin handles the shipping service
 service ShippingService {
   // function that takes in a request message and returns a response message
   rpc CreateConsignment(Consignment) returns (Response) {}
+
+  rpc GetConsignments(GetRequest) returns (Response) {}
 }
 
 // messages, like the ones defined below are just custom types like structs.
@@ -29,7 +31,11 @@ message Container {
   string user_id = 4;
 }
 
+message GetRequest {}
+
 message Response {
   bool created = 1;
   Consignment consignment = 2;
+
+  repeated Consignment consignments = 3; // Array of Consignments
 }
