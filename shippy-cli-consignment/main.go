@@ -6,8 +6,8 @@ import (
 	"log"
 	"os"
 
-	pb "github.com/DHolmanCoding/GoPlayground/shippy-service-consignment/proto/consignment"
 	"context"
+	pb "github.com/DHolmanCoding/GoPlayground/shippy-service-consignment/proto/consignment"
 	"github.com/micro/go-micro/v2"
 )
 
