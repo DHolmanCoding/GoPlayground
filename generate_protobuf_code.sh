@@ -1,4 +1,5 @@
 if [ "$PWD" -ef "/home/douglas/go/src/GoPlayground" ];
   then
-    protoc -I . --go_out=plugins=grpc:. go-playground-service-consignment/proto/consignment/consignment.proto
+    protoc --proto_path=. --go_out=. --micro_out=. \
+      shippy-service-consignment/proto/consignment/consignment.proto
 fi
