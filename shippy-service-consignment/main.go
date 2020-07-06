@@ -4,7 +4,7 @@ import (
 	"context"
 	"log"
 
-	pb "github.com/DHolmanCoding/GoPlayground/shippy-service-consignment/proto/consignment"
+	pb "GoPlayground/shippy-service-consignment/proto/consignment"
 	"github.com/micro/go-micro/v2"
 )
 

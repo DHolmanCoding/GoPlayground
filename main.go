@@ -1,6 +1,6 @@
 package main
 
-import simpleServer "github.com/DHolmanCoding/GoPlayground/testing"
+import simpleServer "GoPlayground/testing"
 
 func main() {
 	simpleServer.LaunchServer()
