@@ -26,6 +26,12 @@ Working on building a boilerplate Go microservice in here. Stay tuned.
     $ go get github.com/golang/protobuf/protoc-gen-go@v1.3
     ```
 
+5. Install Micro
+    ```
+    $ go get github.com/micro/micro/v2
+    $ go get github.com/micro/micro/v2/cmd/protoc-gen-micro@master
+    ```
+
 ## GO111MODULE versus GOPATH
 GOPATH was the original mechanism for storing third part source files using `go get`. Go get
 would get the source code and then store it in $GOPATH/src. Go Modules later got introduced in
@@ -53,6 +59,11 @@ Protobuff releases: https://github.com/protocolbuffers/protobuf/releases
 gRPC services are also defined in `.proto` files, and then `protoc` with a special gRPC plugin can be used to
 generate server and client code from your proto file along with the standard getters, setters, and serialization
 methods mentioned above.
+
+## Micro
+Micro is a framework for building Go microservices without having to concern yourself with the boilerplate of
+creating a gRPC service. Micro works as a protoc plugin that will replace the gRPC plugin that we initially used
+to add functionality to base protoc.
 
 ## Resources Used
 https://ewanvalentine.io/microservices-in-golang-part-x/ where 1<= x <= 10 
